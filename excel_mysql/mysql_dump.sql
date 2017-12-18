@@ -1,20 +1,57 @@
 
-    CREATE TABLE `table_name` (
-      `admin_id` mediumint(8) NOT NULL COMMENT '',
-`user_name` varchar(20) NOT NULL COMMENT '用户名称' DEFAULT 'lzj',
-`passwd` varchar(128) NOT NULL COMMENT '用户密码',
-`true_name` varchar(20) NOT NULL COMMENT '用户真名' DEFAULT '李忠杰',
-`telephone` varchar(40) NOT NULL COMMENT '用户电话',
-      PRIMARY KEY (`admin_id`)
+    CREATE TABLE `hp_shop` (
+      `id` INT(11.0) Not Null COMMENT 'インクリーズ',
+`created` DATETIME  COMMENT '作成時間',
+`modified` DATETIME  COMMENT '最終更新時間',
+`modified_by` INT(11.0)  COMMENT '最終更新者',
+`created_by` INT(11.0)  COMMENT '作成者',
+`deleted` TINYINT(1.0)  COMMENT '0：未削除 1：削除' DEFAULT '0.0',
+`account` VARCHAR(100.0)  COMMENT '店舗アカウント（ユニーク性）',
+`password` VARCHAR(100.0)  COMMENT 'パスワード（店舗管理者ログインパスワード）',
+`type` TINYINT(1.0)  COMMENT 'アカウントステータス 1:有効 2：無効',
+`shop_email` VARCHAR(100.0)  COMMENT '店舗メールアドレス',
+`shop_name` VARCHAR(100.0)  COMMENT '店舗名称',
+`shop_tel` VARCHAR(100.0)  COMMENT '店舗電話番号',
+`comment` VARCHAR(100.0)  COMMENT '店舗キャッチフレーズ（コメント）',
+`is_show` TINYINT(1.0)  COMMENT '店舗表示非表示 1：表示 2：非表示',
+`is_reserved` TINYINT(1.0)  COMMENT '店铺是否可预约 1：是 2：否',
+`grounp_id` INT(11.0)  COMMENT '店舗の所属グループ（関連vi_group）',
+`region_id` INT(11.0)  COMMENT '店舗の所属第一エリア（関連vi_region）',
+`state_id` INT(11.0)  COMMENT '店舗の所属都道府県（関連vi_state）',
+`area_first_id` INT(11.0)  COMMENT '店舗の所属市区町村（関連vi_area_first）',
+`area_second_id` INT(11.0)  COMMENT '店舗の所属市区町村（関連vi_area_second）',
+`location` VARCHAR(100.0)  COMMENT '店舗住所',
+`street_no1` INT(11.0)  COMMENT '店舗住所番地1',
+`street_no2` INT(11.0)  COMMENT '店舗住所番地2',
+`street_no3` INT(11.0)  COMMENT '店舗住所番地3',
+`construction` VARCHAR(100.0)  COMMENT '店舗建物名',
+`address` VARCHAR(100.0)  COMMENT '店舗住所（詳細）',
+`location_x` DECIMAL(24.0)  COMMENT '店舗経度',
+`location_y` DECIMAL(24.0)  COMMENT '店舗緯度',
+`img1` VARCHAR(100.0)  COMMENT '店舗画像1',
+`img2` VARCHAR(100.0)  COMMENT '店舗画像2',
+`img3` VARCHAR(100.0)  COMMENT '店舗画像3',
+`img4` VARCHAR(100.0)  COMMENT '店舗画像4',
+`img5` VARCHAR(100.0)  COMMENT '店舗画像5',
+`is_recommend` TINYINT(1.0)  COMMENT 'オススメ店舗　0：いいえ 1 はい' DEFAULT '0.0',
+`is_onedrink` TINYINT(1.0)  COMMENT 'ワンドリンク制必要か　0：いいえ 1 はい' DEFAULT '0.0',
+`modified_user_type` TINYINT(1.0)  COMMENT '最終更新者タイプ 1：運営側 2店舗',
+      PRIMARY KEY (`id`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
     
 
-    CREATE TABLE `table_name2` (
-      `admin_id` mediumint(8) NOT NULL COMMENT '',
-`user_name` varchar(20) NOT NULL COMMENT '用户名称',
-`passwd` varchar(128) NOT NULL COMMENT '用户密码',
-`true_name` varchar(20) NOT NULL COMMENT '用户真名',
-`telephone` varchar(40) NOT NULL COMMENT '用户电话',
-      PRIMARY KEY (`admin_id`)
+    CREATE TABLE `hp_room` (
+      `id` INT(11.0) Not Null COMMENT '自增长',
+`created` DATETIME  COMMENT '创建记录的时间',
+`modified` DATETIME  COMMENT '最后修改记录的时间',
+`modified_by` INT(11.0)  COMMENT '最后修改人',
+`created_by` INT(11.0)  COMMENT '创建人',
+`deleted` TINYINT(1.0)  COMMENT '是否被删除的标记 0：未删除 1：删除' DEFAULT '0.0',
+`shop_id` INT(11.0)  COMMENT '店铺id',
+`is_usable` TINYINT(1.0)  COMMENT '设定该房间是否接待客人 常值数组 0：休息 1：营业',
+`name` VARCHAR(100.0)  COMMENT '房间名称',
+`img` VARCHAR(100.0)  COMMENT '房间图片',
+`size_id` VARCHAR(100.0)  COMMENT '房间面积(关联hp_size)',
+      PRIMARY KEY (`id`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
     

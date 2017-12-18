@@ -9,23 +9,27 @@ scripts = []
 for sh in data.sheets():
     # print(sh.name, sh.nrows, sh.ncols)
     sql_list = []
-    for rx in range(1, sh.ncols):
+    for rx in range(1, sh.nrows):
         # print(sh.col_values(rx))
-        if sh.nrows == 5 and sh.col_values(rx)[4] != '':
-            sql = "`{}` {} {} COMMENT '{}' DEFAULT '{}',".format(sh.col_values(rx)[0], sh.col_values(rx)[1],
-                                                                 sh.col_values(rx)[2],
-                                                                 sh.col_values(rx)[3], sh.col_values(rx)[4])
+        if sh.row_values(rx)[1] == 'DATETIME':
+            type_length = sh.row_values(rx)[1]
         else:
-            sql = "`{}` {} {} COMMENT '{}',".format(sh.col_values(rx)[0], sh.col_values(rx)[1],
-                                                    sh.col_values(rx)[2],
-                                                    sh.col_values(rx)[3])
+            type_length = '{}({})'.format(sh.row_values(rx)[1], sh.row_values(rx)[2])
+        if sh.ncols == 6 and sh.row_values(rx)[5] != '':
+            sql = "`{}` {} {} COMMENT '{}' DEFAULT '{}',".format(sh.row_values(rx)[0], type_length,
+                                                                 sh.row_values(rx)[3],
+                                                                 sh.row_values(rx)[4], sh.row_values(rx)[5])
+        else:
+            sql = "`{}` {} {} COMMENT '{}',".format(sh.row_values(rx)[0], type_length,
+                                                    sh.row_values(rx)[3],
+                                                    sh.row_values(rx)[4])
         sql_list.append(sql)
     script = """
     CREATE TABLE `{}` (
       {}
       PRIMARY KEY (`{}`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-    """.format(sh.name, '\n'.join(sql_list), sh.col_values(1)[0])
+    """.format(sh.name, '\n'.join(sql_list), sh.row_values(1)[0])
     scripts.append(script)
 
 if os.path.exists('mysql_dump.sql'):
