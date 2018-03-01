@@ -1,0 +1,68 @@
+server {
+    listen       80;
+    server_name  localhost;
+    location / {
+	proxy_pass http://backend;
+	index index.html index.php;
+    }
+}
+
+server {
+    listen       85;
+    server_name  localhost1;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+
+#server {
+#        listen       443 ssl http2 default_server;
+#        listen       [::]:443 ssl http2 default_server;
+#        server_name  localhost;
+#        root         /var/www/html;
+#        index index.php index.html index.htm;
+#
+#        ssl_certificate "/etc/nginx/ssl/certs.pem";
+#        ssl_certificate_key "/etc/nginx/ssl/certs.key";
+#        # It is *strongly* recommended to generate unique DH parameters
+#        # Generate them with: openssl dhparam -out /etc/pki/nginx/dhparams.pem 2048
+#        #ssl_dhparam "/etc/pki/nginx/dhparams.pem";
+#        ssl_session_cache shared:SSL:1m;
+#        ssl_session_timeout  10m;
+#        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+#        ssl_ciphers HIGH:SEED:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!RSAPSK:!aDH:!aECDH:!EDH-DSS-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA:!SRP;
+#        ssl_prefer_server_ciphers on;
+#
+#        # Load configuration files for the default server block.
+#
+#
+#        location / {
+#        autoindex on;
+#        }
+#        error_page 404 /404.html;
+#            location = /40x.html {
+#        }
+#
+#        error_page 500 502 503 504 /50x.html;
+#            location = /50x.html {
+#        }
+#        location ~ \.php$ {
+#        fastcgi_pass   unix:/var/run/php-fpm/www.sock;
+#        fastcgi_index  index.php;
+#        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+#        include        fastcgi_params;
+#         }
+#        location ~ /\.ht {
+#        deny  all;
+#        }
+#    }
+#
+#}
+#

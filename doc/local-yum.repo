@@ -1,0 +1,5 @@
+[localyum]
+name=Server
+baseurl=http://10.215.97.201:85/rpmpackage
+enable=1
+gpgcheck=0
