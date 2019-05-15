@@ -29,14 +29,14 @@ else
     [[ $img == *:* ]] && tag=${img##*:} || tag=latest
 
     if [[ "$img" =~ ^gcr.io|^quay.io ]];then
-        repo=zhangguanzhang/${name//\//.}
+        repo=lzj3278/${name//\//.}
         [[ "$img" == *google-containers* ]] && repo=${repo/google-containers/google_containers}
         docker pull $repo:$tag
         docker tag $repo:$tag $img
         docker rmi $repo:$tag
 
     elif [[ "$img" =~ ^k8s.gcr.io ]];then
-        repo=zhangguanzhang/${name/k8s.gcr.io\//gcr.io.google_containers.}
+        repo=lzj3278/${name/k8s.gcr.io\//gcr.io.google_containers.}
         docker pull $repo:$tag
         docker tag $repo:$tag $img
         docker rmi $repo:$tag
